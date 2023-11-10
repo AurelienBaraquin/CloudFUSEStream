@@ -14,10 +14,13 @@ void *CFSTREAM_handle(int fd)
         return NULL;
     }
 
-    printf("Request received:\n");
-    printf("Size label 30 : %zu\n", req->sections[0].size);
-
     CFreq_free(req);
+
+    CFreq *res = CFreq_new();
+    CFreq_add_section(res, "hello world !", 13, 30);
+    CFreq_compile(res);
+    CFreq_send(res, fd);
+    CFreq_free(res);
 
     CFSTREAM_close(fd);
     return NULL;

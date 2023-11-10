@@ -51,12 +51,13 @@ void CFreq_add_section(CFreq *req, char *data, size_t size, int label)
     req->sections[req->nsections].label = label;
     req->sections[req->nsections].size = size;
     req->sections[req->nsections].offset = 0; // offset is set when we compile the request
-    req->sections[req->nsections].data = malloc(size);
+    req->sections[req->nsections].data = malloc(size + 1);
     if (!req->sections[req->nsections].data) {
         perror("malloc");
         exit(1);
     }
     memcpy(req->sections[req->nsections].data, data, size);
+    req->sections[req->nsections].data[size] = '\0';
     req->nsections++;
 }
 
