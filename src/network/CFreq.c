@@ -1,4 +1,5 @@
 #include "CFrequest.h"
+#include "CFsocket.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -107,4 +108,23 @@ int CFreq_find_section(CFreq *req, int label)
         }
     }
     return -1;
+}
+
+/* Send the request */
+int CFreq_send(CFreq *req, int fd)
+{
+    if (CFSTREAM_send(fd, req->data, req->size + sizeof(size_t) * 2) == -1) {
+        return -1;
+    }
+    return 0;
+}
+
+/* Receive a request */
+CFreq *CFreq_recv(int fd)
+{
+    char *data = CFSTREAM_recv(fd);
+    CFreq *req = CFreq_decompile(data);
+
+    free(data);
+    return req;
 }
