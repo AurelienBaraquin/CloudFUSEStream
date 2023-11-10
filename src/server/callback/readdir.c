@@ -27,8 +27,9 @@ void Sv_CFuse_readdir(CFreq *req, int fd)
     for (int i = 0; i < MAX_CHILD; i++) {
         if (!node->childs[i])
             continue;
-        CFreq_add_section(res, node->childs[i]->name, strlen(node->childs[i]->name), 2 + nentries * 2);
+        CFreq_add_section(res, &node->childs[i]->name[1], strlen(node->childs[i]->name), 2 + nentries * 2);
         CFreq_add_section(res, (char *)&node->childs[i]->stat, sizeof(struct stat), 3 + nentries * 2);
+        nentries++;
     }
 
     CFtree_unlock();

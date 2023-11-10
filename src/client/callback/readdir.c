@@ -34,7 +34,7 @@ int Cl_CFuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t 
 
     for (int i = 0; i < nentries; i++) {
         char name[256];
-        CFreq_get_section(res, name, 256, 2 + i * 2);
+        CFreq_get_section(res, name, res->sections[2 + i * 2].size, 2 + i * 2);
         struct stat stbuf;
         CFreq_get_section(res, &stbuf, sizeof(struct stat), 3 + i * 2);
         filler(buf, name, &stbuf, 0, FUSE_FILL_DIR_PLUS);

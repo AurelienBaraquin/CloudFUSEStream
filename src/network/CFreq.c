@@ -135,10 +135,7 @@ int CFreq_get_section(CFreq *req, void *to_fill, size_t size, int label)
     if (index == -1) {
         return -1;
     }
-    if (size != req->sections[index].size) {
-        return -1;
-    }
-    memcpy(to_fill, req->sections[index].data, size);
+    memcpy(to_fill, req->sections[index].data, req->sections[index].size);
     return 0;
 }
 
