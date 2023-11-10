@@ -14,8 +14,6 @@ CFuse_oper CFfuse_ops = {
 
 int client(int ac, char **av)
 {
-    int fd = CFSTREAM_connect(av[0], atoi(av[1]));
-    if (fd == -1)
-        return 1;
-    return fuse_main(ac - 1, &av[1], &CFfuse_ops, &fd);
+    SPClient_init(av[0], atoi(av[1]));
+    return fuse_main(ac - 1, &av[1], &CFfuse_ops, NULL);
 }

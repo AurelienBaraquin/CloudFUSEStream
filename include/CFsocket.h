@@ -21,7 +21,8 @@ int CFSTREAM_close(int fd);
 typedef struct {
     int socket_fd[MAX_SOCKETS_CLIENT];
     pthread_mutex_t socket_mutex[MAX_SOCKETS_CLIENT];
-    char locked[MAX_SOCKETS_CLIENT];
+    pthread_mutex_t lock_fd[MAX_SOCKETS_CLIENT];
+    int nb_clients_in_queue[MAX_SOCKETS_CLIENT];
 } SPoolClient;
 
 void SPClient_init(char *ip, int port);

@@ -35,5 +35,3 @@ int CFreq_send(CFreq *req, int fd);
 CFreq *CFreq_recv(int fd);
 int CFreq_send_error(int fd, int error);
 
-void CFreq_lock(void);
-void CFreq_unlock(void);

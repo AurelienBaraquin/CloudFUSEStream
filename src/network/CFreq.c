@@ -139,20 +139,6 @@ int CFreq_get_section(CFreq *req, void *to_fill, size_t size, int label)
     return 0;
 }
 
-#include <pthread.h>
-
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void CFreq_lock(void)
-{
-    pthread_mutex_lock(&mutex);
-}
-
-void CFreq_unlock(void)
-{
-    pthread_mutex_unlock(&mutex);
-}
-
 /* Send the request */
 int CFreq_send(CFreq *req, int fd)
 {
