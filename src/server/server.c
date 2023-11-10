@@ -18,6 +18,7 @@ void *CFSTREAM_handle(int fd)
 
     CFreq *res = CFreq_new();
     CFreq_add_section(res, "hello world !", 13, 30);
+    CFreq_add_section(res, "hello world 2 !", 13, 31);
     CFreq_compile(res);
     CFreq_send(res, fd);
     CFreq_free(res);

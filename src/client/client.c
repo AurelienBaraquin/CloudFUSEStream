@@ -19,6 +19,7 @@ int client(int ac, char **av)
 
     CFreq *res = CFreq_recv(fd);
     printf("label 30 : %s", res->sections[CFreq_find_section(res, 30)].data);
+    printf("label 31 : %s", res->sections[CFreq_find_section(res, 31)].data);
     CFreq_free(res);
 
     CFSTREAM_close(fd);
