@@ -9,10 +9,12 @@ int CFrequest_handler(CFreq *req, int fd)
     if (req->nsections == 0 || CFreq_find_section(req, 0) == -1)
         return -1;
     
-    char *call_id = req->sections[CFreq_find_section(req, 0)].data;
+    char *call_id = req->sections[0].data;
 
     if (strcmp(call_id, "getattr") == 0)
         Sv_CFuse_getattr(req, fd);
+    if (strcmp(call_id, "readdir") == 0)
+        Sv_CFuse_readdir(req, fd);
 
     return 0;
 }
