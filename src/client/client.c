@@ -16,7 +16,5 @@ int client(int ac, char **av)
     int fd = CFSTREAM_connect(av[0], atoi(av[1]));
     if (fd == -1)
         return 1;
-    for (int i = 0; av[i]; i++)
-        printf("%s\n", av[i]);
     return fuse_main(ac - 1, &av[1], &CFfuse_ops, &fd);
 }

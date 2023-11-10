@@ -74,10 +74,11 @@ int CFSTREAM_send(int fd, const char *request, size_t len)
 char *CFSTREAM_recv(int fd)
 {
     size_t len;
-    if (read(fd, &len, sizeof(len)) == -1) {
+    if (read(fd, &len, sizeof(len)) <= 0) {
         perror("read");
         return NULL;
     }
+
     char *buf = malloc(len + 1);
     if (!buf) {
         perror("malloc");

@@ -38,6 +38,7 @@ void *CFSTREAM_handle(int fd)
         CFreq_free(req);
     }
 
+    printf("Connection closed : %d\n", fd);
     CFSTREAM_close(fd);
     return NULL;
 }
@@ -54,7 +55,7 @@ int server(int ac, char **av)
             perror("accept");
             return 1;
         }
-
+        printf("New connection : %d\n", client_fd);
         pthread_t thread;
         pthread_create(&thread, NULL, (void *(*)(void *))CFSTREAM_handle, (void *)(long)client_fd);
         pthread_detach(thread);

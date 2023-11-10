@@ -129,6 +129,19 @@ int CFreq_find_section(CFreq *req, int label)
     return -1;
 }
 
+int CFreq_get_section(CFreq *req, void *to_fill, size_t size, int label)
+{
+    int index = CFreq_find_section(req, label);
+    if (index == -1) {
+        return -1;
+    }
+    if (size != req->sections[index].size) {
+        return -1;
+    }
+    memcpy(to_fill, req->sections[index].data, size);
+    return 0;
+}
+
 #include <pthread.h>
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -156,6 +169,9 @@ int CFreq_send(CFreq *req, int fd)
 CFreq *CFreq_recv(int fd)
 {
     char *data = CFSTREAM_recv(fd);
+    if (!data) {
+        return NULL;
+    }
     CFreq *req = CFreq_decompile(data);
 
     free(data);
