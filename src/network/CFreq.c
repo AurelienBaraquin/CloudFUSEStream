@@ -20,6 +20,24 @@ CFreq *CFreq_new(void)
     return self;
 }
 
+void CFreq_free(CFreq *self)
+{
+    if (!self)
+        return;
+
+    int i;
+
+    for (i = 0; i < self->nsections; i++) {
+        if (self->sections[i].data)
+            free(self->sections[i].data);
+    }
+    if (self->sections)
+        free(self->sections);
+    if (self->data)
+        free(self->data);
+    free(self);
+}
+
 void CFreq_add_section(CFreq *req, char *data, size_t size, int label)
 {
     req->sections = realloc(req->sections, sizeof(CFsection) * (req->nsections + 1));
