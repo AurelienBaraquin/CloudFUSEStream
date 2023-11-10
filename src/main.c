@@ -11,7 +11,7 @@ void print_help_message(void)
     printf("    host        hostname to connect to\n");
     printf("    port        port to connect to\n");
     printf("    ip          ip to connect to\n");
-    printf("    fuse flags  flags to pass to fuse\n");
+    printf("    fuse flags  flags to pass to fuse (optional)\n");
     printf("    mountpoint  where to mount the filesystem\n");
 }
 
