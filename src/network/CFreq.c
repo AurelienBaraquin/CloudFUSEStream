@@ -54,6 +54,7 @@ void CFreq_compile(CFreq *req)
     }
 }
 
+/* Return a new CFreq from the given data */
 CFreq *CFreq_decompile(char *data)
 {
     CFreq *req = CFreq_new();
