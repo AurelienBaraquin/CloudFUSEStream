@@ -17,6 +17,8 @@ void *CFSTREAM_handle(int fd)
     printf("Request received:\n");
     printf("Size label 30 : %zu\n", req->sections[0].size);
 
+    CFreq_free(req);
+
     CFSTREAM_close(fd);
     return NULL;
 }

@@ -69,8 +69,8 @@ void CFreq_compile(CFreq *req)
 
     for (i = 0; i < req->nsections; i++) {
         req->sections[i].offset = offset;
-        offset += req->sections[i].size + sizeof(int); // we add sizeof(int) for the label
-        size += req->sections[i].size + sizeof(int);
+        offset += req->sections[i].size + sizeof(int) + sizeof(size_t);
+        size += req->sections[i].size + sizeof(int) + sizeof(size_t);
     }
     req->size = size;
     // we alloc size, nsections and data space
