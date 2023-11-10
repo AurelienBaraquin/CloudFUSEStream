@@ -16,12 +16,19 @@ int Cl_CFuse_getattr(const char *path, struct stat *stbuf, struct fuse_file_info
     CFreq_add_section(req, "getattr", 8, 0);
     CFreq_add_section(req, (char *)path, strlen(path), 1);
     CFreq_compile(req);
+
+    CFreq_lock();
+
     CFreq_send(req, fd);
     CFreq_free(req);
 
     CFreq *res = CFreq_recv(fd);
+
+    CFreq_unlock();
+
     if (!res)
         return -1;
+
     int status = atoi(res->sections[0].data);
     if (status != 0)
         return status;
