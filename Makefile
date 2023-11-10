@@ -3,7 +3,7 @@ CFLAGS = -Wall $(shell pkg-config fuse3 --cflags) -Iinclude
 LDFLAGS = $(shell pkg-config fuse3 --libs) -lz
 
 SRCDIR = src
-C_SOURCES = $(shell find $(SRCDIR) -name '*.c') $(shell find utils -name '*.c')
+C_SOURCES = $(shell find $(SRCDIR) -name '*.c')
 C_OBJECTS = $(C_SOURCES:.c=.o)
 OBJECTS = $(C_OBJECTS)
 EXECUTABLE = CFSTREAM
