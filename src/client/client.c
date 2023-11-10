@@ -6,7 +6,8 @@ CFuse_oper CFfuse_ops = {
     // Cl = Client | Sv = Server
 
     .getattr = Cl_CFuse_getattr,
-    .readdir = Cl_CFuse_readdir
+    .readdir = Cl_CFuse_readdir,
+    .create = Cl_CFuse_create,
     // .open = CFuse_open,
     // .read = CFuse_read,
 };

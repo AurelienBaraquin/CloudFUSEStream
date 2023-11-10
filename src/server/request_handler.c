@@ -15,6 +15,8 @@ int CFrequest_handler(CFreq *req, int fd)
         Sv_CFuse_getattr(req, fd);
     if (strcmp(call_id, "readdir") == 0)
         Sv_CFuse_readdir(req, fd);
+    if (strcmp(call_id, "create") == 0)
+        Sv_CFuse_create(req, fd);
 
     return 0;
 }

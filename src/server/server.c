@@ -11,7 +11,8 @@ int server(int ac, char **av)
 {
     int fd = CFSTREAM_host(atoi(av[0]));
     CFtree_init();
-    CFtree_new_filled("/test", S_IFREG | 0644);
+    CFtree_new_filled("/test", __S_IFREG | 0644);
+    CFtree_new_filled("/dir", __S_IFDIR | 0755);
     if (fd == -1)
         return 1;
     
