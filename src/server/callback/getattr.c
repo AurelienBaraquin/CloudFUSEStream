@@ -8,7 +8,7 @@
 void Sv_CFuse_getattr(CFreq *req, int fd)
 {
     if (req->nsections != 2) {
-        // TODO : send error
+        CFreq_send_error(fd, -1);
         return;
     }
 

@@ -26,7 +26,7 @@ void *CFSTREAM_handle(int fd)
             break;
 
         if (CFrequest_handler(req, fd) == -1) {
-            // TODO : send error
+            CFreq_send_error(fd, -1);
             CFreq_free(req);
             continue;
         }
