@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <sys/types.h>
+#include <errno.h>
 
 typedef struct section_s {
     int label;
@@ -32,6 +33,7 @@ int CFreq_find_section(CFreq *req, int label);
 int CFreq_get_section(CFreq *req, void *to_fill, size_t size, int label);
 int CFreq_send(CFreq *req, int fd);
 CFreq *CFreq_recv(int fd);
+int CFreq_send_error(int fd, int error);
 
 void CFreq_lock(void);
 void CFreq_unlock(void);

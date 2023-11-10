@@ -3,12 +3,14 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
+#include "CFtree.h"
 
 void *CFSTREAM_handle(int fd);
 
 int server(int ac, char **av)
 {
     int fd = CFSTREAM_host(atoi(av[0]));
+    CFtree_init();
     if (fd == -1)
         return 1;
     

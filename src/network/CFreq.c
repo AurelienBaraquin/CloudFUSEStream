@@ -177,3 +177,13 @@ CFreq *CFreq_recv(int fd)
     free(data);
     return req;
 }
+
+int CFreq_send_error(int fd, int error)
+{
+    CFreq *req = CFreq_new();
+    CFreq_add_section(req, (char *)&error, sizeof(int), 0);
+    CFreq_compile(req);
+    CFreq_send(req, fd);
+    CFreq_free(req);
+    return 0;
+}

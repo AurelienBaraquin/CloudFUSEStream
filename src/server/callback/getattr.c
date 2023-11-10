@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "CFtree.h"
 
 void Sv_CFuse_getattr(CFreq *req, int fd)
 {
@@ -12,12 +13,25 @@ void Sv_CFuse_getattr(CFreq *req, int fd)
     }
 
     char *path = req->sections[1].data;
-    printf("path = %s\n", path);
+
+    CFtree_lock();
+    node_t *node = CFtree_get(path);
+    if (!node) {
+        CFreq_send_error(fd, -ENOENT);
+        RETURN_UNLOCK_TREE;
+    }
 
     struct stat stbuf;
-    stbuf.st_mode = S_IFREG | 0644;
-    stbuf.st_nlink = 1;
-    stbuf.st_size = 0;
+    stbuf.st_mode = node->stat.st_mode;
+    stbuf.st_nlink = node->stat.st_nlink;
+    stbuf.st_uid = node->stat.st_uid;
+    stbuf.st_gid = node->stat.st_gid;
+    stbuf.st_size = node->stat.st_size;
+    stbuf.st_atime = node->stat.st_atime;
+    stbuf.st_mtime = node->stat.st_mtime;
+    stbuf.st_ctime = node->stat.st_ctime;
+
+    CFtree_unlock();
 
     CFreq *res = CFreq_new();
     int status = 0;

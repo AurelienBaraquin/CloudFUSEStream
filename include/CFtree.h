@@ -42,4 +42,4 @@ void CFtree_unlock(void);
 
 node_t *CFtree_new_filled(const char *path, mode_t mode);
 
-#define RETURN_CFtree_unlock(x) do { CFtree_unlock(); return x; } while(0)
+#define RETURN_UNLOCK_TREE do { CFtree_unlock(); return; } while(0)
