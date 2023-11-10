@@ -16,12 +16,12 @@ $(EXECUTABLE): $(OBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-run: $(EXECUTABLE)
-	./$(EXECUTABLE)
+host: $(EXECUTABLE)
+	./$(EXECUTABLE) host 65670
 
 clean:
 	rm -f $(C_OBJECTS) $(EXECUTABLE)
 
 re: clean all
 
-.PHONY: all run clean re
+.PHONY: all host clean re
