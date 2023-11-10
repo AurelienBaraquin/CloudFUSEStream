@@ -8,20 +8,13 @@
 
 void *CFSTREAM_handle(int fd)
 {
-    CFreq *req = CFreq_recv(fd);
-    if (!req) {
-        CFSTREAM_close(fd);
-        return NULL;
+    while (1) {
+        CFreq *req = CFreq_recv(fd);
+        if (!req)
+            break;
+
+        //TODO : Handle request
     }
-
-    CFreq_free(req);
-
-    CFreq *res = CFreq_new();
-    CFreq_add_section(res, "hello world !", 13, 30);
-    CFreq_add_section(res, "hello world 2 !", 13, 31);
-    CFreq_compile(res);
-    CFreq_send(res, fd);
-    CFreq_free(res);
 
     CFSTREAM_close(fd);
     return NULL;

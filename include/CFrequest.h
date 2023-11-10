@@ -10,7 +10,11 @@ typedef struct section_s {
     char *data;
 } CFsection;
 
-/* Contains the request data, which is a list of sections which each section pointing to a data buffer in the data field */
+/* Contains the request data, which is a list of sections which each section pointing to a data buffer in the data field.
+    Request format:
+    - Client : section[0] = call_id | section[1] = path
+    - Server : section[0] = status
+ */
 typedef struct CFreq_s {
     size_t size;
     size_t nsections;
