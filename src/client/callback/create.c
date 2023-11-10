@@ -24,6 +24,7 @@ int Cl_CFuse_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 
     int status;
     CFreq_get_section(res, &status, sizeof(int), 0);
+    CFreq_free(res);
 
     return status;
 }
