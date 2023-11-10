@@ -78,7 +78,6 @@ char *CFSTREAM_recv(int fd)
         perror("read");
         return NULL;
     }
-
     char *buf = malloc(len + 1);
     if (!buf) {
         perror("malloc");
