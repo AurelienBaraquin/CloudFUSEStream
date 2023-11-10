@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <string.h>
+#include <arpa/inet.h>
 
 int CFSTREAM_host(int port)
 {
