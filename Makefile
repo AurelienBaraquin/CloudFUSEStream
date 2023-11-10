@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall $(shell pkg-config fuse3 --cflags) -Iinclude
+CFLAGS = -Wall -g3 $(shell pkg-config fuse3 --cflags) -Iinclude
 LDFLAGS = $(shell pkg-config fuse3 --libs) -lz
 
 SRCDIR = src

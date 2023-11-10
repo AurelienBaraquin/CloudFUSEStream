@@ -17,13 +17,7 @@ int client(int ac, char **av)
     CFreq_send(req, fd);
     CFreq_free(req);
 
-    CFreq *res = CFreq_recv(fd);
-    char *data = malloc(res->sections[CFreq_find_section(res, 30)].size + 1);
-    memcpy(data, res->sections[CFreq_find_section(res, 30)].data, res->sections[CFreq_find_section(res, 30)].size);
-    data[res->sections[CFreq_find_section(res, 30)].size] = '\0';
-    printf("%s\n", data);
-
-    CFreq_free(res);
+    CFSTREAM_close(fd);
 
     return 0;
 }

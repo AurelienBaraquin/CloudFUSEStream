@@ -2,10 +2,12 @@
 #include "CFsocket.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 void CFreq_init(CFreq *self)
 {
     self->size = 0;
+    self->nsections = 0;
     self->data = NULL;
     self->sections = NULL;
 }
@@ -42,10 +44,18 @@ void CFreq_free(CFreq *self)
 void CFreq_add_section(CFreq *req, char *data, size_t size, int label)
 {
     req->sections = realloc(req->sections, sizeof(CFsection) * (req->nsections + 1));
+    if (!req->sections) {
+        perror("realloc");
+        exit(1);
+    }
     req->sections[req->nsections].label = label;
     req->sections[req->nsections].size = size;
     req->sections[req->nsections].offset = 0; // offset is set when we compile the request
     req->sections[req->nsections].data = malloc(size);
+    if (!req->sections[req->nsections].data) {
+        perror("malloc");
+        exit(1);
+    }
     memcpy(req->sections[req->nsections].data, data, size);
     req->nsections++;
 }
@@ -65,11 +75,16 @@ void CFreq_compile(CFreq *req)
     req->size = size;
     // we alloc size, nsections and data space
     req->data = malloc(sizeof(size_t) * 2 + size);
+    if (!req->data) {
+        perror("malloc");
+        exit(1);
+    }
     memcpy(req->data, &req->size, sizeof(size_t));
     memcpy(req->data + sizeof(size_t), &req->nsections, sizeof(size_t));
     for (i = 0; i < req->nsections; i++) {
         memcpy(req->data + sizeof(size_t) * 2 + req->sections[i].offset, &req->sections[i].label, sizeof(int));
-        memcpy(req->data + sizeof(size_t) * 2 + req->sections[i].offset + sizeof(int), req->sections[i].data, req->sections[i].size);
+        memcpy(req->data + sizeof(size_t) * 2 + req->sections[i].offset + sizeof(int), &req->sections[i].size, sizeof(size_t));
+        memcpy(req->data + sizeof(size_t) * 2 + req->sections[i].offset + sizeof(int) + sizeof(size_t), req->sections[i].data, req->sections[i].size);
     }
 }
 
@@ -77,6 +92,9 @@ void CFreq_compile(CFreq *req)
 CFreq *CFreq_decompile(char *data)
 {
     CFreq *req = CFreq_new();
+    if (!req) {
+        return NULL;
+    }
     size_t size;
     size_t nsections;
     int i;
