@@ -8,7 +8,7 @@ pthread_mutex_t CFstore_mutex = PTHREAD_MUTEX_INITIALIZER;
 int CFstore_CFtree_set(node_t *node, unsigned char *data)
 {
     pthread_mutex_lock(&CFstore_mutex);
-    char *res = compressBuffer(data, node->stat.st_size, &node->compressed_size);
+    unsigned char *res = compressBuffer(data, node->stat.st_size, &node->compressed_size);
     if (!res) {
         pthread_mutex_unlock(&CFstore_mutex);
         return -1;

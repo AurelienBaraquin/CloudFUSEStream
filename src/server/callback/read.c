@@ -4,7 +4,7 @@
 #include "CFtree.h"
 #include "CFstore.h"
 
-#define DEBUG printf("Line : %d\n", __LINE__);
+#include "CFdebug.h"
 
 void Sv_CFuse_read(CFreq *req, int fd)
 {
@@ -49,5 +49,6 @@ void Sv_CFuse_read(CFreq *req, int fd)
     CFreq_free(res);
 
     free(data);
-    DEBUG
+
+    CFtree_unlock();
 }
