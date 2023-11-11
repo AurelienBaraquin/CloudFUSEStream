@@ -15,7 +15,7 @@ unsigned char* compressBuffer(unsigned char* inBuffer, size_t inLength, size_t* 
     return outBuffer;
 }
 
-unsigned char* decompressBuffer(unsigned char* inBuffer, size_t inLength, size_t* outLength, size_t estDecompressedSize)
+unsigned char* decompressBuffer(unsigned char* inBuffer, size_t inLength, size_t estDecompressedSize)
 {
     unsigned char* outBuffer = (unsigned char*)malloc(estDecompressedSize);
 
@@ -24,6 +24,5 @@ unsigned char* decompressBuffer(unsigned char* inBuffer, size_t inLength, size_t
         return NULL;
     }
 
-    *outLength = estDecompressedSize;
     return outBuffer;
 }

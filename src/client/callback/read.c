@@ -31,7 +31,7 @@ int Cl_CFuse_read(const char *path, char *buf, size_t size, off_t offset,
         return status;
     }
 
-    CFreq_get_section(res, buf, size, 1);
+    memcpy(buf, res->sections[1].data, status);
     CFreq_free(res);
     SPClient_release(fd);
 

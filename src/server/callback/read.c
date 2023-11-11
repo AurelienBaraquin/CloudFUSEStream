@@ -4,6 +4,8 @@
 #include "CFtree.h"
 #include "CFstore.h"
 
+#define DEBUG printf("Line : %d\n", __LINE__);
+
 void Sv_CFuse_read(CFreq *req, int fd)
 {
     if (req->nsections != 4) {
@@ -47,4 +49,5 @@ void Sv_CFuse_read(CFreq *req, int fd)
     CFreq_free(res);
 
     free(data);
+    DEBUG
 }

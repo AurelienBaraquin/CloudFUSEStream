@@ -8,18 +8,21 @@ pthread_mutex_t CFstore_mutex = PTHREAD_MUTEX_INITIALIZER;
 int CFstore_CFtree_set(node_t *node, unsigned char *data)
 {
     pthread_mutex_lock(&CFstore_mutex);
-    if (compressBuffer(data, node->stat.st_size, &node->compressed_size) == NULL) {
+    char *res = compressBuffer(data, node->stat.st_size, &node->compressed_size);
+    if (!res) {
         pthread_mutex_unlock(&CFstore_mutex);
         return -1;
     }
     char *path = CFstore_getPath(node->name);
-    if (CFstore_write(path, data, node->compressed_size) == -1) {
+    if (CFstore_write(path, res, node->compressed_size) == -1) {
         pthread_mutex_unlock(&CFstore_mutex);
         free(path);
+        free(res);
         return -1;
     }
     pthread_mutex_unlock(&CFstore_mutex);
     free(path);
+    free(res);
     return 0;
 }
 
@@ -37,13 +40,14 @@ unsigned char *CFstore_CFtree_get(node_t *node)
         free(path);
         return NULL;
     }
-    buffer = decompressBuffer(buffer, node->compressed_size, (size_t *)&node->stat.st_size, node->compressed_size);
-    if (!buffer) {
+    unsigned char *res = decompressBuffer(buffer, node->compressed_size, node->stat.st_size);
+    if (!res) {
         pthread_mutex_unlock(&CFstore_mutex);
         free(path);
         return NULL;
     }
     pthread_mutex_unlock(&CFstore_mutex);
     free(path);
-    return buffer;
+    free(buffer);
+    return res;
 }

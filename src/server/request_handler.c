@@ -19,8 +19,8 @@ int CFrequest_handler(CFreq *req, int fd)
         Sv_CFuse_create(req, fd);
     if (strcmp(call_id, "write") == 0)
         Sv_CFuse_write(req, fd);
-    // if (strcmp(call_id, "read") == 0)
-    //     Sv_CFuse_read(req, fd);
+    if (strcmp(call_id, "read") == 0)
+        Sv_CFuse_read(req, fd);
 
     return 0;
 }
