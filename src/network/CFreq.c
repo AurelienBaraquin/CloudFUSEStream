@@ -142,7 +142,7 @@ int CFreq_get_section(CFreq *req, void *to_fill, size_t size, int label)
 /* Send the request */
 int CFreq_send(CFreq *req, int fd)
 {
-    if (CFSTREAM_send(fd, req->data, req->size + sizeof(size_t) * 2) == -1) {
+    if (CFStream_send(fd, req->data, req->size + sizeof(size_t) * 2) == -1) {
         return -1;
     }
     return 0;
@@ -151,7 +151,7 @@ int CFreq_send(CFreq *req, int fd)
 /* Receive a request */
 CFreq *CFreq_recv(int fd)
 {
-    char *data = CFSTREAM_recv(fd);
+    char *data = CFStream_recv(fd);
     if (!data) {
         return NULL;
     }

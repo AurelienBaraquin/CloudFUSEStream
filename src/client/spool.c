@@ -5,7 +5,7 @@ SPoolClient pool;
 void SPClient_init(char *ip, int port)
 {
     for (int i = 0; i < MAX_SOCKETS_CLIENT; i++) {
-        pool.socket_fd[i] = CFSTREAM_connect(ip, port);
+        pool.socket_fd[i] = CFStream_connect(ip, port);
         pthread_mutex_init(&pool.socket_mutex[i], NULL);
         pthread_mutex_init(&pool.lock_fd[i], NULL);
         pool.nb_clients_in_queue[i] = 0;

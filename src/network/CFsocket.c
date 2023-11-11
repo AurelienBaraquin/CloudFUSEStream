@@ -7,7 +7,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 
-int CFSTREAM_host(int port)
+int CFStream_host(int port)
 {
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     if (fd == -1) {
@@ -34,7 +34,7 @@ int CFSTREAM_host(int port)
     return fd;
 }
 
-int CFSTREAM_connect(const char *host, int port)
+int CFStream_connect(const char *host, int port)
 {
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     if (fd == -1) {
@@ -56,7 +56,7 @@ int CFSTREAM_connect(const char *host, int port)
     return fd;
 }
 
-int CFSTREAM_send(int fd, const char *request, size_t len)
+int CFStream_send(int fd, const char *request, size_t len)
 {
     if (write(fd, &len, sizeof(len)) == -1) {
         perror("write");
@@ -71,7 +71,7 @@ int CFSTREAM_send(int fd, const char *request, size_t len)
     return 0;
 }
 
-char *CFSTREAM_recv(int fd)
+char *CFStream_recv(int fd)
 {
     size_t len;
     if (read(fd, &len, sizeof(len)) <= 0) {
@@ -95,7 +95,7 @@ char *CFSTREAM_recv(int fd)
     return buf;
 }
 
-int CFSTREAM_close(int fd)
+int CFStream_close(int fd)
 {
     if (close(fd) == -1) {
         perror("close");

@@ -2,11 +2,11 @@
 
 #include <sys/types.h>
 
-int CFSTREAM_host(int port);
-int CFSTREAM_connect(const char *host, int port);
-int CFSTREAM_send(int fd, const char *request, size_t len);
-char *CFSTREAM_recv(int fd);
-int CFSTREAM_close(int fd);
+int CFStream_host(int port);
+int CFStream_connect(const char *host, int port);
+int CFStream_send(int fd, const char *request, size_t len);
+char *CFStream_recv(int fd);
+int CFStream_close(int fd);
 
 #include <pthread.h>
 

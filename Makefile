@@ -6,7 +6,7 @@ SRCDIR = src
 C_SOURCES = $(shell find $(SRCDIR) -name '*.c')
 C_OBJECTS = $(C_SOURCES:.c=.o)
 OBJECTS = $(C_OBJECTS)
-EXECUTABLE = CFSTREAM
+EXECUTABLE = CFStream
 
 all: $(EXECUTABLE)
 

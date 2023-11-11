@@ -21,7 +21,7 @@ int CFrequest_handler(CFreq *req, int fd)
     return 0;
 }
 
-void *CFSTREAM_handle(int fd)
+void *CFStream_handle(int fd)
 {
     CFreq *req = NULL;
     while (1) {
@@ -39,6 +39,6 @@ void *CFSTREAM_handle(int fd)
     }
 
     printf("Connection closed : %d\n", fd);
-    CFSTREAM_close(fd);
+    CFStream_close(fd);
     return NULL;
 }

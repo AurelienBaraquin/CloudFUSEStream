@@ -5,8 +5,8 @@
 void print_help_message(void)
 {
     printf("USAGE\n");
-    printf("    ./CFSTREAM host [port]\n");
-    printf("    ./CFSTREAM connect [ip] [port] <fuse flags> [mountpoint]\n\n");
+    printf("    ./CFStream host [port]\n");
+    printf("    ./CFStream connect [ip] [port] <fuse flags> [mountpoint]\n\n");
     printf("DESCRIPTION\n");
     printf("    host        hostname to connect to\n");
     printf("    port        port to connect to\n");
