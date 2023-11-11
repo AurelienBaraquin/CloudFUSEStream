@@ -26,7 +26,6 @@ node_t *new_node(const char *name, node_t *parent) {
     memset(node, 0, sizeof(node_t));
     
     node->name = strdup(strrchr(name, '/'));
-    node->content = NULL;
     node->parent = parent;
     node->compressed_size = 0;
     
@@ -38,7 +37,6 @@ node_t *new_node(const char *name, node_t *parent) {
 //* Free tree ________________________________________________________________*/
 void free_node(node_t *node) {
     free(node->name);
-    free(node->content);
     free(node);
 }
 
@@ -129,7 +127,6 @@ void CFtree_init(void) {
 
     memset(root, 0, sizeof(node_t));
     root->name = strdup("/");
-    root->content = NULL;
     root->stat.st_mode = S_IFDIR | 0755;
     root->stat.st_nlink = 2;
     root->parent = NULL;
