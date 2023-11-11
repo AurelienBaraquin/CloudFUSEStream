@@ -10,6 +10,7 @@ CFuse_oper CFfuse_ops = {
     .create = Cl_CFuse_create,
     // .open = CFuse_open,
     // .read = CFuse_read,
+    .write = Cl_CFuse_write,
 };
 
 int client(int ac, char **av)

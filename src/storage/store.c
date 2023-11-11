@@ -5,7 +5,7 @@ char *CFstore_getPath(const char *path);
 
 pthread_mutex_t CFstore_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-int CFstore_CFtree_add(node_t *node, unsigned char *data)
+int CFstore_CFtree_set(node_t *node, unsigned char *data)
 {
     pthread_mutex_lock(&CFstore_mutex);
     if (compressBuffer(data, node->stat.st_size, &node->compressed_size) == NULL) {

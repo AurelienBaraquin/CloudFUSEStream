@@ -127,6 +127,7 @@ void CFtree_init(void) {
 
     memset(root, 0, sizeof(node_t));
     root->name = strdup("/");
+    root->compressed_size = 0;
     root->stat.st_mode = S_IFDIR | 0755;
     root->stat.st_nlink = 2;
     root->parent = NULL;
