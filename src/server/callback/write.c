@@ -6,7 +6,7 @@
 
 void Sv_CFuse_write(CFreq *req, int fd)
 {
-    if (req->nsections != 3) {
+    if (req->nsections != 5) {
         CFreq_send_error(fd, -1);
         return;
     }
@@ -24,15 +24,17 @@ void Sv_CFuse_write(CFreq *req, int fd)
 
     size_t size;
     off_t offset;
-    char *buf;
+    char *buf = req->sections[4].data;
     CFreq_get_section(req, &size, sizeof(size_t), 2);
     CFreq_get_section(req, &offset, sizeof(off_t), 3);
-    CFreq_get_section(req, &buf, size, 4);
 
-    unsigned char *data = CFstore_CFtree_get(node);
-    if (!data) {
-        CFreq_send_error(fd, -ENOMEM);
-        RETURN_UNLOCK_TREE;
+    unsigned char *data = NULL;
+    if (node->stat.st_size != 0) {
+        data = CFstore_CFtree_get(node);
+        if (!data) {
+            CFreq_send_error(fd, -ENOMEM);
+            RETURN_UNLOCK_TREE;
+        }
     }
 
     data = realloc(data, offset + size);
@@ -48,12 +50,11 @@ void Sv_CFuse_write(CFreq *req, int fd)
     CFstore_CFtree_set(node, data);
     CFtree_unlock();
 
-    int status = 0;
+    int status = size;
     CFreq_add_section(res, (char *)&status, sizeof(int), 0);
     CFreq_compile(res);
     CFreq_send(res, fd);
     CFreq_free(res);
 
     free(data);
-    free(buf);
 }
