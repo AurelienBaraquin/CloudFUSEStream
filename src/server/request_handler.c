@@ -11,16 +11,12 @@ int CFrequest_handler(CFreq *req, int fd)
     
     char *call_id = req->sections[0].data;
 
-    if (strcmp(call_id, "getattr") == 0)
-        Sv_CFuse_getattr(req, fd);
-    if (strcmp(call_id, "readdir") == 0)
-        Sv_CFuse_readdir(req, fd);
-    if (strcmp(call_id, "create") == 0)
-        Sv_CFuse_create(req, fd);
-    if (strcmp(call_id, "write") == 0)
-        Sv_CFuse_write(req, fd);
-    if (strcmp(call_id, "read") == 0)
-        Sv_CFuse_read(req, fd);
+    for (int i = 0; i < (int)(sizeof(Sv_CFuse_ops) / sizeof(Sv_CFuse_oper)); i++) {
+        if (strcmp(call_id, Sv_CFuse_ops[i].call_id) == 0) {
+            Sv_CFuse_ops[i].func(req, fd);
+            return 0;
+        }
+    }
 
     return 0;
 }
