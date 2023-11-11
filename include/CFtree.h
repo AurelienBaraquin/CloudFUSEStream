@@ -10,7 +10,6 @@
 
 typedef struct node {
     char *name;
-    unsigned char *content;
     size_t compressed_size;
     struct stat stat;
     struct node *parent;
