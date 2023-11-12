@@ -29,6 +29,7 @@ node_t *CFtree_add(const char *path);
 int CFtree_remove(const char *path);
 int CFtree_rename(const char *old_path, const char *new_path);
 node_t *CFtree_get(const char *path);
+char *CFtree_get_fullpath(node_t *node);
 void CFtree_print(void);
 void CFtree_free(node_t *node);
 

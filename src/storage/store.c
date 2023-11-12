@@ -5,6 +5,14 @@ char *CFstore_getPath(const char *path);
 
 pthread_mutex_t CFstore_mutex = PTHREAD_MUTEX_INITIALIZER;
 
+static void replace_char(char *str, char old, char new)
+{
+    for (int i = 0; str[i]; i++) {
+        if (str[i] == old)
+            str[i] = new;
+    }
+}
+
 int CFstore_CFtree_set(node_t *node, unsigned char *data)
 {
     pthread_mutex_lock(&CFstore_mutex);
@@ -13,7 +21,10 @@ int CFstore_CFtree_set(node_t *node, unsigned char *data)
         pthread_mutex_unlock(&CFstore_mutex);
         return -1;
     }
-    char *path = CFstore_getPath(node->name);
+    char *fullname = CFtree_get_fullpath(node);
+    replace_char(&fullname[1], '/', '\\');
+    char *path = CFstore_getPath(fullname);
+    free(fullname);
     if (CFstore_write(path, res, node->compressed_size) == -1) {
         pthread_mutex_unlock(&CFstore_mutex);
         free(path);
@@ -34,7 +45,10 @@ unsigned char *CFstore_CFtree_get(node_t *node)
         pthread_mutex_unlock(&CFstore_mutex);
         return NULL;
     }
-    char *path = CFstore_getPath(node->name);
+    char *fullname = CFtree_get_fullpath(node);
+    replace_char(&fullname[1], '/', '\\');
+    char *path = CFstore_getPath(fullname);
+    free(fullname);
     if (CFstore_read(path, buffer, node->compressed_size) == -1) {
         pthread_mutex_unlock(&CFstore_mutex);
         free(path);

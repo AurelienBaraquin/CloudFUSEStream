@@ -120,6 +120,25 @@ node_t *get_parent(const char *path) {
     return parent;
 }
 
+char *CFtree_get_fullpath(node_t *node) {
+    if (!node) {
+        return NULL;
+    }
+
+    char *path = strdup(node->name);
+    node_t *current = node;
+    while (current->parent && strcmp(current->parent->name, "/") != 0) {
+        current = current->parent;
+        char *tmp = malloc(strlen(path) + strlen(current->name) + 1);
+        strcpy(tmp, current->name);
+        strcpy(tmp + strlen(current->name), path);
+        tmp[strlen(current->name) + strlen(path)] = '\0';
+        free(path);
+        path = tmp;
+    }
+    return path;
+}
+
 void CFtree_init(void) {
     root = (node_t *)malloc(sizeof(node_t));
     if (!root)
