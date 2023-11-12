@@ -13,8 +13,6 @@ int server(int ac, char **av)
 {
     int fd = CFStream_host(atoi(av[0]));
     CFtree_init();
-    CFtree_new_filled("/test", __S_IFREG | 0644);
-    CFtree_new_filled("/dir", __S_IFDIR | 0755);
     CFstore_init("./store");
     if (fd == -1)
         return 1;
