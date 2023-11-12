@@ -18,7 +18,8 @@ int CFrequest_handler(CFreq *req, int fd)
         }
     }
 
-    return 0;
+    CFreq_send_error(fd, -1);
+    return -1;
 }
 
 void *CFStream_handle(int fd)
