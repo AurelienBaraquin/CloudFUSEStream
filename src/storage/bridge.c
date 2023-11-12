@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int CFstore_write(const char *path, const unsigned char *data, size_t size)
 {

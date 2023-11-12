@@ -3,8 +3,6 @@
 #include "CLcallback.h"
 
 CFuse_oper CFfuse_ops = {
-    // Cl = Client | Sv = Server
-
     .getattr = Cl_CFuse_getattr,
     .readdir = Cl_CFuse_readdir,
     .create = Cl_CFuse_create,
@@ -12,6 +10,7 @@ CFuse_oper CFfuse_ops = {
     // .open = Cl_CFuse_open,
     .read = Cl_CFuse_read,
     .write = Cl_CFuse_write,
+    .unlink = Cl_CFuse_unlink,
 };
 
 int client(int ac, char **av)

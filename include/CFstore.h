@@ -13,3 +13,4 @@ int CFstore_read(const char *path, unsigned char *buffer, size_t size);
 
 int CFstore_CFtree_set(node_t *node, unsigned char *data);
 unsigned char *CFstore_CFtree_get(node_t *node);
+int CFstore_CFtree_remove(node_t *node);

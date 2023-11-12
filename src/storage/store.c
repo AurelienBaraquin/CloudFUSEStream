@@ -15,6 +15,8 @@ static void replace_char(char *str, char old, char new)
 
 int CFstore_CFtree_set(node_t *node, unsigned char *data)
 {
+    if (!node)
+        return -1;
     pthread_mutex_lock(&CFstore_mutex);
     unsigned char *res = compressBuffer(data, node->stat.st_size, &node->compressed_size);
     if (!res) {
@@ -39,6 +41,8 @@ int CFstore_CFtree_set(node_t *node, unsigned char *data)
 
 unsigned char *CFstore_CFtree_get(node_t *node)
 {
+    if (!node)
+        return NULL;
     pthread_mutex_lock(&CFstore_mutex);
     unsigned char *buffer = (unsigned char *)malloc(node->compressed_size);
     if (!buffer) {
@@ -64,4 +68,23 @@ unsigned char *CFstore_CFtree_get(node_t *node)
     free(path);
     free(buffer);
     return res;
+}
+
+int CFstore_CFtree_remove(node_t *node)
+{
+    if (!node)
+        return -1;
+    pthread_mutex_lock(&CFstore_mutex);
+    char *fullname = CFtree_get_fullpath(node);
+    replace_char(&fullname[1], '/', '\\');
+    char *path = CFstore_getPath(fullname);
+    free(fullname);
+    if (CFstore_remove(path) == -1) {
+        pthread_mutex_unlock(&CFstore_mutex);
+        free(path);
+        return -1;
+    }
+    pthread_mutex_unlock(&CFstore_mutex);
+    free(path);
+    return 0;
 }

@@ -8,3 +8,4 @@ int Cl_CFuse_create(const char *path, mode_t mode, struct fuse_file_info *fi);
 int Cl_CFuse_mkdir(const char *path, mode_t mode);
 int Cl_CFuse_write(const char *path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi);
 int Cl_CFuse_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi);
+int Cl_CFuse_unlink(const char *path);
