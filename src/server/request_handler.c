@@ -3,6 +3,7 @@
 #include "SVcallback.h"
 #include <string.h>
 #include <stdio.h>
+#include "color.h"
 
 int CFrequest_handler(CFreq *req, int fd)
 {
@@ -30,20 +31,20 @@ void *CFStream_handle(int fd)
         if (!req)
             break;
 
-        printf("%d : %s\t-> Started\n", fd, req->sections[0].data);
+        printf("%d : "COLOR_YELLOW"%s\t"COLOR_RESET"-> "COLOR_YELLOW"Started\n" COLOR_RESET, fd, req->sections[0].data);
 
         if (CFrequest_handler(req, fd) == -1) {
-            printf("%d : %s\t-> Failed\n", fd, req->sections[0].data);
+            printf(COLOR_RED "%d : %s\t"COLOR_RESET"->"COLOR_RED" Error\n" COLOR_RESET, fd, req->sections[0].data);
             CFreq_send_error(fd, -1);
             CFreq_free(req);
             continue;
         }
 
-        printf("%d : %s\t-> Done\n", fd, req->sections[0].data);
+        printf("%d : "COLOR_YELLOW"%s\t"COLOR_RESET"->"COLOR_YELLOW" Done\n" COLOR_RESET, fd, req->sections[0].data);
         CFreq_free(req);
     }
 
-    printf("Connection closed : %d\n", fd);
+    printf("%d\t-> "COLOR_GREEN"Disconnected\n" COLOR_RESET, fd);
     CFStream_close(fd);
     return NULL;
 }

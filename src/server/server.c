@@ -5,6 +5,7 @@
 #include <arpa/inet.h>
 #include "CFtree.h"
 #include "CFstore.h"
+#include "color.h"
 
 void *CFStream_handle(int fd);
 
@@ -24,7 +25,7 @@ int server(int ac, char **av)
             perror("accept");
             return 1;
         }
-        printf("New connection : %d\n", client_fd);
+        printf("%d\t-> "COLOR_GREEN"Connected\n" COLOR_RESET, client_fd);
         pthread_t thread;
         pthread_create(&thread, NULL, (void *(*)(void *))CFStream_handle, (void *)(long)client_fd);
         pthread_detach(thread);
