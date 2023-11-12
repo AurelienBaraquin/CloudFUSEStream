@@ -10,7 +10,7 @@ int CFStream_close(int fd);
 
 #include <pthread.h>
 
-#define MAX_SOCKETS_CLIENT 1
+#define MAX_SOCKETS_CLIENT 3
 
 typedef struct {
     int socket_fd[MAX_SOCKETS_CLIENT];

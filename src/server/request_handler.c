@@ -29,12 +29,16 @@ void *CFStream_handle(int fd)
         if (!req)
             break;
 
+        printf("%d : %s\t-> Started\n", fd, req->sections[0].data);
+
         if (CFrequest_handler(req, fd) == -1) {
+            printf("%d : %s\t-> Failed\n", fd, req->sections[0].data);
             CFreq_send_error(fd, -1);
             CFreq_free(req);
             continue;
         }
 
+        printf("%d : %s\t-> Done\n", fd, req->sections[0].data);
         CFreq_free(req);
     }
 
