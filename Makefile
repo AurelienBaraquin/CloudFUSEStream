@@ -17,7 +17,11 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 host: $(EXECUTABLE)
-	./$(EXECUTABLE) host 65670
+	./$(EXECUTABLE) host 6567
+
+connect: $(EXECUTABLE)
+	mkdir -p rep
+	./$(EXECUTABLE) connect 127.0.0.1 6567 rep
 
 clean:
 	rm -f $(C_OBJECTS) $(EXECUTABLE)
