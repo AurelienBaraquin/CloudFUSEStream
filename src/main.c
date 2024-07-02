@@ -12,7 +12,12 @@ void print_help_message(void)
     printf("    port        port to connect to\n");
     printf("    ip          ip to connect to\n");
     printf("    fuse flags  flags to pass to fuse (optional)\n");
-    printf("    mountpoint  where to mount the filesystem\n");
+    printf("    mountpoint  where to mount the filesystem\n\n");
+    printf("FUSE FLAGS\n");
+    printf("    -d          Enable debug mode\n");
+    printf("    -f          Run in foreground\n");
+    printf("    -s          Single-threaded\n");
+    printf("    -h          Print help\n");
 }
 
 int main(int ac, char **av)
