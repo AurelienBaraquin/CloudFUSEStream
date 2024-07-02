@@ -2,7 +2,7 @@
 #include <string.h>
 #include <dirent.h>
 
-char *pathToStore = NULL;
+static char *pathToStore = "/store";
 
 int CFstore_init(char *path)
 {
@@ -19,6 +19,10 @@ int CFstore_init(char *path)
 
 char *CFstore_getPath(const char *path)
 {
+    if (!pathToStore)
+        return NULL;
+    if (!path)
+        return NULL;
     char *fullPath = (char *)malloc(strlen(pathToStore) + strlen(path) + 1);
     if (!fullPath)
         return NULL;
